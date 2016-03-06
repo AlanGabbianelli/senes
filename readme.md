@@ -1,4 +1,4 @@
-## Senes
+# Senes
 
 ## Table of Contents
 
@@ -11,7 +11,7 @@
 * [Future improvements](#future-improvements)
 
 
-# Authors
+## Authors
 
 [Emma Beynon](https://github.com/emmabeynon) | [Jamie Brown](https://github.com/jamiebrown201) | [Alan Gabbianelli](https://github.com/alangabbianelli) | [Camilla Colombo Serri](https://github.com/allimac) | [Katie Smith](https://github.com/klssmith)
 
