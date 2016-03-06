@@ -1,14 +1,4 @@
-![makersacademy](https://github.com/allimac/resources/blob/master/ma_logo.png)
-
-**week 11 / Final project**
-
-================================
-
-![Senes logo](https://github.com/allimac/senior-health/blob/development/mobile/www/img/logo.png =211x167)
-
-This is the final project for our Makers Academy coding bootcamp! The projects consists of a mobile app and an API, to allow people to provide better care for their elderly relatives.
-
-================================
+## Senes
 
 ## Table of Contents
 
@@ -23,15 +13,7 @@ This is the final project for our Makers Academy coding bootcamp! The projects c
 
 # Authors
 
-[Emma Beynon](https://github.com/emmabeynon)
-
-[Jamie Brown](https://github.com/jamiebrown201)
-
-[Alan Gabbianelli](https://github.com/alangabbianelli)
-
-[Camilla Colombo Serri](https://github.com/allimac)
-
-[Katie Smith](https://github.com/klssmith)
+[Emma Beynon](https://github.com/emmabeynon) | [Jamie Brown](https://github.com/jamiebrown201) | [Alan Gabbianelli](https://github.com/alangabbianelli) | [Camilla Colombo Serri](https://github.com/allimac) | [Katie Smith](https://github.com/klssmith)
 
 
 ## The problem statement
