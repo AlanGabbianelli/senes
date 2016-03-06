@@ -1,28 +1,37 @@
 angular.module('seniorHealth.controllers', ['LocalStorageModule'])
 
-.controller('TodayCtrl', function($scope) {})
-
-.controller('WeekCtrl', function($scope) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+.controller('TodayCtrl', function($scope) {
+  $scope.$on('$ionicView.enter', function(e) {
+    $scope.$apply();
+  });
 })
 
-.controller('SettingsCtrl', function($scope, ApiFactory) {
-  var self = this;
+.controller('WeekCtrl', function($scope) {
+  $scope.$on('$ionicView.enter', function(e) {
+    $scope.$apply();
+  });
+})
 
-  self.setAlarms = function(pillAlarm) {
+.controller('SettingsCtrl', function($scope, $ionicPopup, popupFactory, popupFactoryUpdate , AlarmFactory) {
+  $scope.showPopup = function() {
+    $scope.data = {};
+    var myPopup = popupFactory.getPopup($scope, AlarmFactory);
+    myPopup.then(function(res) {
+      console.log('Tapped!', res);
+    });
+   };
 
+ $scope.showPopupUpdate = function(alarm_id) {
+   $scope.data = {};
+   var myPopup = popupFactory.getPopup($scope, AlarmFactory, alarm_id);
+   myPopup.then(function(res) {
+     console.log('Tapped!', res);
+   });
   };
 })
 
 .controller('ApiController', function(ApiFactory, $scope) {
   var self = this;
-
   self.callApi = function(period) {
     ApiFactory.query(period)
     .then(function(response){
@@ -30,16 +39,24 @@ angular.module('seniorHealth.controllers', ['LocalStorageModule'])
     });
   };
 
-  $scope.doRefresh =
-   function() {
+  $scope.doRefresh = function(period) {
      self.callApi(period);
      $scope.$broadcast('scroll.refreshComplete');
      $scope.$apply();
   };
 })
 
-.controller('AuthenticationController', function ($scope, $state) {
-  // Check our local storage for the proper credentials to ensure we are logged in, this means users can't get past app unless they select a username
+.controller('AlarmController', function(AlarmFactory, $scope) {
+  var self = this;
+  self.allAlarms = [];
+  self.getAlarms = function() {
+    AlarmFactory.getAll().then(function(response){
+      self.allAlarms = response.data.trackerAlarms;
+    });
+  };
+})
+
+.controller('AuthenticationController', function ($scope) {
   if (window.localStorage.seniorId) {
     // ===== UNCOMMENT TWO LINES BELOW & comment 1 LINE ABOVE FOR STYLING =====
     // if (true) {
@@ -50,7 +67,8 @@ angular.module('seniorHealth.controllers', ['LocalStorageModule'])
     $scope.needsAuthentication = true;
   }
   $scope.logout = function () {
-    window.localStorage.clearAll();
+
+    window.localStorage.clear();
     location.href=location.pathname;
   };
 
@@ -59,7 +77,4 @@ angular.module('seniorHealth.controllers', ['LocalStorageModule'])
 
 .controller('LoginController', function($scope,FitbitLoginService) {
   $scope.fitbitlogin = FitbitLoginService.login;
-  $scope.promise = window.localStorage.promise;
-  $scope.url = window.localStorage.webUrl;
-  $scope.seniorId = window.localStorage.seniorId;
 });

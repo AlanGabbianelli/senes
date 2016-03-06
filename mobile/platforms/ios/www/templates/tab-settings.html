@@ -1,15 +1,16 @@
 <ion-view view-title="Settings">
-  <ion-content class="padding" ng-controller="ApiController as ApiCtrl" ng-init="ApiCtrl.callApi()">
+  <ion-content class="padding" ng-controller="ApiController as ApiCtrl" ng-init="ApiCtrl.callApi('settings')">
     <div class="list card">
       <div class="item item-avatar">
         <img src="{{ApiCtrl.result.avatar}}">
         Caring for:<br>
         <strong>{{ApiCtrl.result.name}}</strong>
       </div>
-    <div class="item item-divider">
-      Notifications
     </div>
-    <ul class="list">
+    <div class="list card settings" >
+      <div class="item item-divider">
+        Notifications
+      </div>
       <li class="item item-toggle">
         Heart rate alert
         <label class="toggle toggle-calm">
@@ -28,32 +29,22 @@
           </div>
         </label>
       </li>
-      <div class="item item-divider">
-        Alarms
-      </div>
-      <li>
-        <label class="item item-input">
-        Pill Reminder
-          <input type="time" ng-model="ApiCtrl.pillAlarm" name="pillAlarm">
-          <div class="track">
-            <div class="handle"></div>
-          </div>
-        </label>
-      </li>
-      <li>
-        <label class="item item-input">
-          <button class="button button-clear button-positive text-center" ng-click="ApiCtrl.setAlarms(ApiCtrl.pillAlarm);">Save alarms</button>
-          <div class="track">
-            <div class="handle"></div>
-          </div>
-        </label>
-      </li>
-    </ul>
-  </div>
-    <div class="padding">
-      <button class="button button-block button-calm">
-        <a href="logout()">Log out</a>
-      </button>
+      <div ng-controller="AlarmController as alarmCtrl" ng-init="alarmCtrl.getAlarms()" class="settings">
+        <div class="item item-divider" >
+          Alarms
+        </div>
+        <li class="item" ng-repeat="alarm in alarmCtrl.allAlarms">
+          <a data-ng-attr-id="{{alarm.alarmId}}" ng-click="showPopupUpdate({{alarm.alarmId}})"> {{ alarm.time }} </a>
+        </li>
+        <li class="item">
+          <a ng-click="showPopup()">+ Add alarm</a>
+        </li>
     </div>
-  </ion-content>
+  </div>
+  <div class="padding">
+    <button class="button button-block button-calm">
+      <a ng-click="logout()">Log out</a>
+    </button>
+  </div>
+</ion-content>
 </ion-view>
